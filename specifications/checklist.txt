@@ -1,0 +1,13 @@
+Programming Test – React Developer
+
+build a 'Contact Us' web app with the following characteristics
+
+Checklist:
+
+1.) The form captures at minimum: name and email address 
+2.) and message with the sort of form validation you would expect
+3.) a successful form submit writes the values into some form of local storage and should persist - at least - for the lifetime of the web app
+4.) web app has to be a single page application
+5.) submission should utilise TypeScript with React and Redux
+6.) It is not necessary to build the backend component to this - however, it is recommended that there are at the very least mock APIs that your web app would consume.
+7.) show techniques and methodoliges used everyday: TDD? Kanban/Trello
