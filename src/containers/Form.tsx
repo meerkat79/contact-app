@@ -4,7 +4,7 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 
-// import { emailError, nameError, phoneError,  } from './util/validation/validationTypes';
+// import { submitContact } from '../actions/submitAction';
 
 interface IState {
   email: string,
@@ -86,6 +86,10 @@ export default class Form extends React.Component<{}, IState> {
     handleSubmit = () => {
         const error = this.validateName();
         if(!error) {
+            console.log('write the state to the redux store, then clear form');
+
+          // this.props.dispatch(submitContact(this.state));
+
             this.setState({
                 email:'',
                 emailError: '',
@@ -94,6 +98,7 @@ export default class Form extends React.Component<{}, IState> {
                 phone: '',
                 phoneError: ''
             });
+
         }
     };  
 
