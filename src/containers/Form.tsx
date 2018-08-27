@@ -5,46 +5,54 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 
-// import { submitContact } from '../actions/submitAction';
+import { submitContact } from '../actions/submitAction';
 
 interface IState {
-  email: string,
+  contact: {
+    email: string,
+    name: string,
+    phone: string
+  },
   emailError: string,
-  name: string,
   nameError: string,
-  phone: string,
   phoneError: string
 }
 
-class Form extends React.Component<{}, IState> {
+interface IProps {
+  dispatch: any
+}
+
+class Form extends React.Component<IProps, IState> {
 
   state: IState = {
-    email:'',
+    contact: {
+      email: '',
+      name: '',
+      phone: ''
+    },
     emailError: '',
-    name: '',
-    nameError: '',    
-    phone: '',
+    nameError: '',
     phoneError: ''
   };  
 
     handleNameChange = (e: React.SyntheticEvent): void => {
         const target = e.target as HTMLInputElement;
         this.setState({
-            name: target.value
-        })
+          contact: Object.assign(this.state.contact,{'name':target.value})
+        });
     };
 
     handleNumberChange = (e: React.SyntheticEvent): void => {
         const target = e.target as HTMLInputElement;
         this.setState({
-            phone: target.value
+          contact: Object.assign(this.state.contact,{'phone':target.value})
         });
     };
 
     handleEmailChange = (e: React.SyntheticEvent): void => {
         const target = e.target as HTMLInputElement;
         this.setState({
-            email: target.value
+          contact: Object.assign(this.state.contact,{'email':target.value})
         });
     };
 
@@ -60,17 +68,17 @@ class Form extends React.Component<{}, IState> {
             phoneError: ''
           };
         
-        if (this.state.email.indexOf("@") === -1) {
+        if (this.state.contact.email.indexOf("@") === -1) {
             isError = true;
             errors.emailError = "Email requires a valid e-mail address.";
         }
 
-        if (this.state.name.length < 3) {
+        if (this.state.contact.name.length < 3) {
             isError = true;
             errors.nameError = "Please enter a valid name of at least 3 characters.";
         }    
 
-        if(this.state.phone.length < 5 || this.state.phone.length > 11) {
+        if(this.state.contact.phone.length < 5 || this.state.contact.phone.length > 11) {
             isError = true;
             errors.phoneError = "Please enter a valid phone number.";            
         }
@@ -84,31 +92,34 @@ class Form extends React.Component<{}, IState> {
     
     }
 
-    handleSubmit = () => {
+    handleSubmit = (e: React.SyntheticEvent): void => {
+        e.preventDefault();
         const error = this.validateName();
         if(!error) {
             console.log('write the state to the redux store, then clear form');
 
-          // this.props.dispatch(submitContact(this.state));
+          this.props.dispatch(submitContact(this.state.contact));
 
-            this.setState({
-                email:'',
-                emailError: '',
-                name: '',
-                nameError: '',    
-                phone: '',
-                phoneError: ''
-            });
+            // after dispatching the changes to our store we clear our form, resetting the component state
+
+            // this.setState({
+            //     email:'',
+            //     emailError: '',
+            //     name: '',
+            //     nameError: '',    
+            //     phone: '',
+            //     phoneError: ''
+            // });
 
         }
-    };  
-
+    };
 
   public render() {
 
     console.log('rendered state is: ', this.state);
+    console.log('props on render are: ', this.props);
 
-    const { name, email, phone } = this.state;
+    const { name, email, phone } = this.state.contact;
 
     const formStyle = {
       border: '2px solid #616161',

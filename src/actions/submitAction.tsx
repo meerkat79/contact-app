@@ -1,3 +1,3 @@
-export function submitContact(contact:object) {
+export function submitContact(contact:any) {
     return {type: 'SUBMIT_CONTACT', contact};
 }
