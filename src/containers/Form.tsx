@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { connect } from 'react-redux';
 
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
@@ -15,7 +16,7 @@ interface IState {
   phoneError: string
 }
 
-export default class Form extends React.Component<{}, IState> {
+class Form extends React.Component<{}, IState> {
 
   state: IState = {
     email:'',
@@ -181,3 +182,11 @@ export default class Form extends React.Component<{}, IState> {
     );
   }
 }
+
+function mapStateToProps(state: any) {
+	return {
+		submit: state
+	};
+}
+
+export default connect(mapStateToProps) (Form);
