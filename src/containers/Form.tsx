@@ -100,6 +100,8 @@ export default class Form extends React.Component<{}, IState> {
 
   public render() {
 
+    console.log('rendered state is: ', this.state);
+
     const { name, email, phone } = this.state;
 
     const formStyle = {
@@ -136,7 +138,7 @@ export default class Form extends React.Component<{}, IState> {
                   type="tel"
                   margin="normal"
                   value={phone}
-                  error={this.state.phone !== ''}
+                  error={this.state.phoneError !== ''}
                   onChange={this.handleNumberChange}
                   helperText={this.state.phoneError !== '' ? this.state.phoneError : ''}
                   required={true}
@@ -150,7 +152,7 @@ export default class Form extends React.Component<{}, IState> {
                   type="email"
                   margin="normal"
                   value={email}
-                  error={this.state.email !== ''}
+                  error={this.state.emailError !== ''}
                   onChange={this.handleEmailChange}
                   helperText={this.state.emailError !== '' ? this.state.emailError: ''}
                   required={true}           
